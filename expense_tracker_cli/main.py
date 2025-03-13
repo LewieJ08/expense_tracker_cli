@@ -31,8 +31,26 @@ def add(description,amount):
         json.dump(data,file,indent=4)
     
     
-def update():
-    pass
+def update(iD):
+    with open(JSONFILE) as file:
+        data = json.load(file)
+
+    for item in data:
+        if item["id"] == iD:
+            print(item)
+            description = input("New description> ")
+            amount = int(input("New amount> "))
+
+            item["description"] = description
+            item["amount"] = amount
+
+            with open(JSONFILE,"w") as file:
+                json.dump(data,file,indent=4)  
+
+            print("Expense updated successfully")
+            return
+        
+    print(f"Expence with ID '{iD}' not found")
 
 def delete():
     pass
@@ -48,22 +66,35 @@ def main():
     if not os.path.exists(JSONFILE):
         with open(JSONFILE,"w") as file:
             json.dump([], file)
+
     while True:
         uinput = input("Expense-Tracker> ").lower().strip()
-
         splitInput = uinput.split(" ",2)
+
+        if len(splitInput) == 3:
+            command, argument, amount = splitInput 
+      
+            if command == COMMANDS[1]:
+                try:
+                    amount = int(amount)
+                    add(argument, amount)
+                except ValueError:
+                    print("Amount must be an integer")
+
+        elif len(splitInput) == 2:
+            command, iD = splitInput
+
+            if command == COMMANDS[2]:
+                try:
+                    iD= int(iD)
+                    update(iD)
+                except ValueError:
+                    print("Amount must be an integer")
+        
 
         if splitInput[0] == COMMANDS[0]:
             break
 
-        command, argument, amount = splitInput 
-      
-        if command == COMMANDS[1]:
-            try:
-                amount = int(amount)
-                add(argument, amount)
-            except ValueError:
-                print("Amount must be an integer ")
 
 #entry point
 if __name__ == "__main__":
