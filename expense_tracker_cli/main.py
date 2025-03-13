@@ -37,7 +37,6 @@ def update(iD):
 
     for item in data:
         if item["id"] == iD:
-            print(item)
             description = input("New description> ")
             amount = int(input("New amount> "))
 
@@ -69,8 +68,18 @@ def delete(iD):
     with open(JSONFILE,"w") as file:
         json.dump(updatedData,file,indent=4)
 
-def summary():
-    pass
+def summary(month):
+    with open(JSONFILE) as file:
+        data = json.load(file)
+
+    total = 0
+
+    if month == False:
+        for item in data:
+            total += item["amount"]
+
+        print(f"Total expenses: £{total}")
+
 
 def list():
     pass
@@ -92,8 +101,10 @@ def main():
                 try:
                     amount = int(amount)
                     add(argument, amount)
+                    continue
                 except ValueError:
                     print("Amount must be an integer")
+                    continue
 
         elif len(splitInput) == 2:
             command, iD = splitInput
@@ -102,19 +113,39 @@ def main():
                 try:
                     iD= int(iD)
                     update(iD)
+                    continue
                 except ValueError:
                     print("ID must be an integer")
+                    continue
             
             elif command == COMMANDS[3]:
                 try:
                     iD= int(iD)
                     delete(iD)
+                    continue
                 except ValueError:
                     print("ID must be an integer")
+                    continue
+
+            command, month = splitInput
+
+            if command == COMMANDS[5]:
+                try:
+                    month = int(month)
+                    summary(month)
+                    continue
+                except ValueError: 
+                    print("Month must be an integer")
+                    continue
 
         elif splitInput[0] == COMMANDS[0]:
             break
 
+        elif splitInput[0] == COMMANDS[5]:
+            summary(False)
+            continue
+
+        print("Invalid command.")
 
 #entry point
 if __name__ == "__main__":
