@@ -52,8 +52,22 @@ def update(iD):
         
     print(f"Expence with ID '{iD}' not found")
 
-def delete():
-    pass
+def delete(iD):
+    with open(JSONFILE) as file:
+        data = json.load(file)
+
+    updatedData = []
+
+    for item in data:
+        if item["id"] != iD:
+            updatedData.append(item)
+
+    if len(updatedData) == len(data):
+        print("Expense not found.")
+        return 
+    
+    with open(JSONFILE,"w") as file:
+        json.dump(updatedData,file,indent=4)
 
 def summary():
     pass
@@ -89,10 +103,16 @@ def main():
                     iD= int(iD)
                     update(iD)
                 except ValueError:
-                    print("Amount must be an integer")
-        
+                    print("ID must be an integer")
+            
+            elif command == COMMANDS[3]:
+                try:
+                    iD= int(iD)
+                    delete(iD)
+                except ValueError:
+                    print("ID must be an integer")
 
-        if splitInput[0] == COMMANDS[0]:
+        elif splitInput[0] == COMMANDS[0]:
             break
 
 
