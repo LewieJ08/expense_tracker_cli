@@ -80,6 +80,38 @@ def summary(month):
 
         print(f"Total expenses: £{total}")
 
+    else: 
+        for item in data:
+            itemMonth = (item["date"].split("/",2))[1]
+            if itemMonth == month:
+                total += item["amount"]
+
+        if month == "01":
+            print(f"Total expenses for January: £{total}")
+        elif month == "02":
+            print(f"Total expenses for Febuary: £{total}")
+        elif month == "03":
+            print(f"Total expenses for March: £{total}")
+        elif month == "04":
+            print(f"Total expenses for April: £{total}")
+        elif month == "05":
+            print(f"Total expenses for May: £{total}")
+        elif month == "06":
+            print(f"Total expenses for June: £{total}")
+        elif month == "07":
+            print(f"Total expenses for July: £{total}")
+        elif month == "08":
+            print(f"Total expenses for August: £{total}")
+        elif month == "09":
+            print(f"Total expenses for September: £{total}")
+        elif month == "10":
+            print(f"Total expenses for October: £{total}")
+        elif month == "11":
+            print(f"Total expenses for November: £{total}")
+        elif month == "12":
+            print(f"Total expenses for December: £{total}")
+        else:
+            print("Invalid month")
 
 def list():
     pass
@@ -130,14 +162,9 @@ def main():
             command, month = splitInput
 
             if command == COMMANDS[5]:
-                try:
-                    month = int(month)
-                    summary(month)
-                    continue
-                except ValueError: 
-                    print("Month must be an integer")
-                    continue
-
+                summary(month)
+                continue
+                
         elif splitInput[0] == COMMANDS[0]:
             break
 
