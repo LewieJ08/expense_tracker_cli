@@ -114,7 +114,11 @@ def summary(month):
             print("Invalid month")
 
 def list():
-    pass
+    with open(JSONFILE) as file:
+        data = json.load(file)
+
+        for item in data:
+            print(item)
 
 #main function
 def main():
@@ -170,6 +174,10 @@ def main():
 
         elif splitInput[0] == COMMANDS[5]:
             summary(False)
+            continue
+        
+        elif splitInput[0] == COMMANDS[4]:
+            list()
             continue
 
         print("Invalid command.")

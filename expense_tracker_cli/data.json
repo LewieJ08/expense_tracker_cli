@@ -1,0 +1,20 @@
+[
+    {
+        "id": 3,
+        "date": "13/03/2025",
+        "description": "foooooood",
+        "amount": 21354255
+    },
+    {
+        "id": 4,
+        "date": "13/03/2025",
+        "description": "rent",
+        "amount": 823721679562145
+    },
+    {
+        "id": 5,
+        "date": "13/03/2025",
+        "description": "morefood",
+        "amount": 343
+    }
+]
